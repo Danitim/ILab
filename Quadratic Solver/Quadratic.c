@@ -7,18 +7,21 @@ int SolveLin(double a, double b, double *x);
 
 void PrintSol(int n_roots, double x1, double x2);
 
+//Main function of a "Quadratic Solver"
 int main() {
     printf("Hello, this is Ultimate Square Equation Solver - 3000 (USES-3000) by Daniil Timchenko\n");
 
     int stop = 0;
     char c = 'a';
     
+    //Loop for multiple use of a program
     while (stop!=1) {
         printf("Enter a, b and c coefficients of quadratic equation\n");
 
         int check=0;
         double a=0, b=0, c=0, x1=0, x2=0;
 
+        //Loop waiting for correct input of three coefficients
         check=scanf("%lg %lg %lg", &a, &b, &c);
         while (check!=3) {
             printf("Wrong input. Please try again\n");
@@ -32,6 +35,7 @@ int main() {
 
         printf("Type 'y' to continue solving or type 'n' to exit program\n");
 
+        //Loop waiting for correct input of continue/stop command
         fflush(stdin);
         c = getchar();
         while ((c!='y') && (c!='n')) {
@@ -48,6 +52,7 @@ int main() {
     return 0;
 }
 
+//Pure matematic function that actually solves quadratic equation
 int SolveSq(double a, double b, double c, double *x1, double *x2) {
 
     if ((a==0) && (b==0)) {
@@ -76,11 +81,13 @@ int SolveSq(double a, double b, double c, double *x1, double *x2) {
     return 2;
 }
 
+//Sub-Function that solves simple case of a linear equation
 int SolveLin(double a, double b, double *x) {
     *x=(-b)/a;
     return 1;
 }
 
+//Function that separates different cases of solutions and prints them
 void PrintSol(int n_roots, double x1, double x2) {
     switch (n_roots) {
     case -1: printf("All real numbers are solutions\n"); break;

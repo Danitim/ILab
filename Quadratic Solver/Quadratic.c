@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+int CheckDoubles(double a, double b);
+
 int SolveSq(double a, double b, double c, double *x1, double *x2);
 
 int SolveLin(double a, double b, double *x);
@@ -52,17 +54,22 @@ int main() {
     return 0;
 }
 
-//Pure matematic function that actually solves quadratic equation
+//Function that compares two doubles more precisely
+int CheckDoubles(double a, double b) {
+    return fabs(a-b) < 1e-30 ? 1 : 0;
+}
+
+//Function that actually solves quadratic equation matematically
 int SolveSq(double a, double b, double c, double *x1, double *x2) {
 
-    if ((a==0) && (b==0)) {
-        if (c==0) return -1;
+    if (CheckDoubles(a, 0.0f) && CheckDoubles(b, 0.0f)) {
+        if (CheckDoubles(c, 0.0f)) return -1;
         else return 0;
     }
 
-    if (a==0) return SolveLin(b, c, x1);
+    if (CheckDoubles(a, 0.0f)) return SolveLin(b, c, x1);
 
-    if (c==0) {
+    if (CheckDoubles(c, 0.0f)) {
         *x1=0;
         return SolveLin(a, b, x2)+1;
     }
@@ -71,7 +78,7 @@ int SolveSq(double a, double b, double c, double *x1, double *x2) {
 
     if (d<0) return 0;
 
-    if (d==0) {
+    if (CheckDoubles(d, 0.0f)) {
         *x1=(-b)/(2*a);
         return 1;
     }
